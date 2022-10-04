@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Time is finite Webサイト制作">
+    <title>Time is finite</title>
+    <link rel="shortcut icon" href="img/TF.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300&display=swap"
+      rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- header -->
+    <header id="header">
+      <div class="container">
+        <article>
+          <a href="index.html"><img class="logo" src="img/logo.png" alt="Time is finite"></a>
+          <h1 class="cname">WEBサイト制作<br>Time is finite</h1>
+        </article>
+        <article>
+          <div class="clock_area">
+            <div class="clock">
+              <p class="clock_date"></p>
+              <p class="clock_time"></p>
+            </div>
+          </div>
+        </article>
+        <article>
+          <div id="menu">
+            <nav>
+              <ul>
+                <li><a href="#skill_area">Skill</a></li>
+                <li><a href="#about_area">About</a></li>
+                <li><a href="#work_area">Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+            </nav>
+          </div> 
+        </article>
+        </div>
+        <!-- control-section -->
+        <button id="toggle_btn">
+          <span class="span"></span>
+          <span class="span1"></span>
+          <span class="span2"></span>
+          <span class="span3"></span>
+        </button>
+        <div id="menu_area">
+          <a class="remove" href="#index.html">Home</a>
+          <a class="remove1" href="#skill_area">Skill</a>
+          <a class="remove" href="#about_area">About</a>
+          <a class="remove" href="#work_area">Work</a>
+          <a class="remove" href="#contact">Contact</a>
+        </div>
+    </header>
+    <!-- main -->
+    <main>
+      <div id="main_img">
+        <div class="img">
+          <img class="night" src="img/night.jpg" alt="夜">
+          <img class="sea" src="img/sea.jpg" alt="海">
+          <img class="road" src="img/road.jpg" alt="道">
+          <img class="fuji" src="img/fuji.jpg" alt="富士山">
+          <img class="city" src="img/city.jpg" alt="レインボーブリッジ">
+          <img class="autumn" src="img/autumn.jpg" alt="秋">
+        </div>
+        <h1 class="site_title">時間は有限</h1>
+        <h2 class="site_massage">限りある時間を大切に</h2>
+        <h2 class="under_message">後悔の無い生き方を</h2>
+      </div>
+    </main>
+    <section id="skill_area">
+      <div class="wrap">
+        <p class="typing-animation">WEBサイトの制作をお願いしたい方に</p>
+        <p class="i_can">私が出来る事</p>
+      </div>
+    </section>
+    <h3 id="scroll_top_button"><img src="img/top_btn.png" alt="トップボタン"></h3>
+    <script src="js/menu.js"></script>
+    <script src="js/min.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>    
+  </body>
+</html>

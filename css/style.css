@@ -1,0 +1,532 @@
+@charset "UTF-8";
+
+html {
+  font-size: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Cardo', serif;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* 共通の幅設定 */
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.container > article {
+  width: 33%;
+}
+
+/* ヘッダー */
+#header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #FFFDE4, #005AA7);
+  z-index: 2;
+}
+
+#header article {
+  align-items: center;
+}
+
+/* Time is finiteロゴ */
+.logo {
+  display: inline-block;
+  width: 100px;  
+  height: 100px;
+  align-items: center;
+  filter: drop-shadow(1px 1px 1px #232222);
+  position: relative;
+  top: 0;
+  left: 5px;
+}
+
+/* サイト名 */
+.cname {
+  position: absolute;
+  font-style: italic;
+  top: 15px;
+  left: 140px;
+  font-family: 'Cardo', serif;
+  text-shadow: 1px 1px 2px rgb(98, 96, 96);
+}
+
+/* 時計を囲う要素 */
+#clock_area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+/* 時計共通スタイル */
+.clock {
+  font-family: 'Cinzel', serif;
+  color: rgb(0, 0, 0);
+  text-shadow: 1px 1px 2px rgb(234, 225, 225);
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* 日付のスタイル */
+.clock_date {
+  font-size: 12px;
+}
+
+/* 時間のスタイル */
+.clock_time {
+  font-size: 26px;
+}
+
+/*             メニュー             */
+#menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+#menu ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+#menu li {
+  justify-content: center;
+  margin: 0 20px 0 0;
+}
+
+#menu ul li a {
+  display: block;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  align-items: center;
+  color: rgb(0, 0, 0);
+  text-shadow: 1px 1px 2px rgb(234, 225, 225);
+  font-weight: bold;
+  text-align: center;
+  font-style: italic;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-right: 15px;
+  z-index: 5;
+}
+
+/*             ハンバーガーメニューボタン             */
+#toggle_btn {
+  display: block;
+  position: relative;
+  border: none;
+  width: 30px;
+  height: 30px;
+  top: -10px;
+  right: 30px;
+  background-color: transparent;
+  cursor: pointer;
+  z-index: 5;
+  opacity: 1;
+}
+
+#toggle_btn span {
+  position: absolute;
+  display: block;
+  box-shadow: 0px 0 4px rgb(234, 225, 225);
+  transition: all 1.0s;
+  border-radius: 4px;
+}
+
+#toggle_btn span:nth-child(3) {
+  display: block;
+  top: 4px;
+  left: -2px;
+  width: 30px;
+  height: 2px;
+  background-color: #000000;
+}
+
+#toggle_btn span:nth-child(1) {
+  display: block;
+  top: 14px;
+  left: -2px;
+  width: 30px;
+  height: 2px;
+  background-color: #000000;
+}
+
+#toggle_btn span:nth-child(2) {
+  display: block;
+  bottom: 4px;
+  left: -2px;
+  width: 30px;
+  height: 2px;
+  background-color: #000000;
+}
+
+#toggle_btn span:nth-child(4)::after {
+  content: 'MENU';
+  font-size: 0.6rem;
+  font-weight: bold;
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  left: -2px;
+  text-shadow: 1px 0 2px rgb(234, 225, 225);
+}
+
+#toggle_btn span.menu_active:nth-child(1) {
+  transform: translateX(30px);
+  opacity: 0;
+}
+
+#toggle_btn span.menu_active:nth-child(2) {
+  transform: translateY(-10px) rotate(-315deg);
+}
+
+#toggle_btn span.menu_active:nth-child(3) {
+  transform: translateY(10px) rotate(315deg);
+}
+
+#toggle_btn span.menu_active:nth-child(4)::after {
+  content: 'CLOSE';
+  display: inline-block;
+  left: -4px;
+}
+
+/* ハンバーガーメニュー */
+#menu_area{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+  background-image: url(../img/ship.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: all 1.0s ease-in-out;
+  opacity: 0;
+}
+/* ハンバーガーメニュークリック時に出現 */
+#menu_area.menu_active {
+  opacity: 1;
+  z-index: 3;
+} 
+
+#menu_area a {
+  font-size: 2rem;
+  color: #fff;
+  font-style: italic;
+  position: relative;
+  text-shadow: 1px 1px 4px rgb(255, 140, 0);
+  margin: 20px 0 20px 0;
+}
+
+#menu_area a::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  border-radius: 4px;
+  background-color: rgb(255, 242, 225);
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform .3s ease-in-out;
+}
+
+#menu_area a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+/* メイン画面 背面 */
+#main_img {
+  width: 100%;
+  height: 100vh;
+  background-image:url(../img/earth.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.img {
+  top: 100px;
+  left: 0;
+  position: relative;
+}
+
+.img > img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px #edeaea;
+}
+
+.img > img:hover {
+  box-shadow: 0 0 10px #01d9ff;
+}
+
+/* メイン画面、小背景上：富士（左）、道（右） */
+.fuji {
+  position: absolute;
+  left: 14%;
+}
+
+.road {
+  position: absolute;
+  right: 14%;
+}
+
+/* メイン画面、小背景中：町（左）、海（右） */
+.city {
+  position: absolute;
+  top: 18vw;
+  left: 8%;
+}
+
+.sea {
+  position: absolute;
+  top: 18vw;
+  right: 8%;
+}
+
+/* メイン画面、小背景下：秋（左）、夜（右） */
+.autumn {
+  position: absolute;
+  top: 36vw;
+  left: 14%;
+}
+
+.night {
+  position: absolute;
+  top: 36vw;
+  right: 14%;
+}
+
+.site_title {
+  font-size: 4rem;
+  position: absolute;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.3vw;
+  top: 12vw;
+  left: 53%;
+  text-shadow: 2px 0 10px rgb(246, 253, 255);
+  animation: flash 10s infinite;
+}
+
+.site_massage {
+  font-size: 3rem;
+  position: absolute;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.3vw;
+  top: 18vw;
+  left: 48%;
+  text-shadow: 2px 0 10px rgb(246, 253, 255);
+  animation: flash 10s infinite;
+}
+
+.under_message {
+  font-size: 3rem;
+  position: absolute;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.3vw;
+  top: 24vw;
+  left: 42%;
+  text-shadow: 2px 0 10px rgb(246, 253, 255);
+  animation: flash 10s infinite;
+}
+
+@keyframes flash {
+  0%, 100% {
+    /* 明るく光るよう影を重ねる */
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #0091ff, 0 0 70px #0091ff, 0 0 80px #0091ff, 0 0 100px #0091ff, 0 0 150px #0091ff,
+  }
+  50% {
+    /* 淡く光るよう影を重ねる */
+    text-shadow: 0 0 10px #fff, 0 0 20px #fcfcfc, 0 0 30px #fcfcfc, 0 0 40px #0091ff;
+  }
+}
+
+.wrap {
+  width: 100%;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  margin: 50px auto 50px auto;
+}
+
+/* スキルエリア */
+#skill_area {
+  width: 100%;
+  height: 100vh;
+  background-image: url(../img/book.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* タイピング */
+.typing-animation {
+	width: 34ch;	/*文字の長さ*/
+	border-right: 5px solid #000;	/*点滅バー*/
+	overflow: hidden;	/*必須*/
+	white-space: nowrap;	/*必須*/
+	color:#151616;
+	font-size: 3rem;
+	line-height: 1.4;
+	font-weight: 700;
+	animation: typing 3s steps(18), blink .4s step-end infinite alternate;	/*アニメーション関連*/
+}
+
+@keyframes typing {
+	from {
+		width: 0;
+	}
+}
+@keyframes blink {
+	50% {
+		border-color: transparent;		/*点滅風に見せる*/
+	}
+}
+
+/* スクロールボタン */
+#scroll_top_button {
+  position: fixed;
+  bottom: 10px;
+  right: 1px;
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+/* メディアクオリ */
+@media (max-width: 1025px) {
+  #menu {
+    display: none;
+  }
+
+  .site_title {
+    font-size: 3rem;
+    top: 24vw;
+  }
+
+  .site_massage {
+    font-size: 2rem;
+    top: 36vw;
+  }
+
+  .under_message {
+    font-size: 2rem;
+    top:48vw;
+  }
+
+  .img > img {
+    width: 15vw;
+    height: 10vh;
+    position: absolute;
+  }
+
+  .fuji,
+  .road {
+    top: 10vw;
+  }
+
+  .city,
+  .sea {
+    top: 30vw;
+  }
+
+  .autumn,
+  .night {
+    top: 50vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .cname {
+    opacity: 0;
+  }
+
+  #toggle_btn {
+    opacity: 1;
+  }
+  
+  .site_title {
+    font-size: 2rem;
+    top: 36vw;
+  }
+
+  .site_massage {
+    font-size: 1.2rem;
+    top: 55vw;
+  }
+
+  .under_message {
+    font-size: 1.2rem;
+    top: 80vw;
+  }
+
+  .img > img {
+    width: 10vw;
+    height: 5vh;
+    position: absolute;
+  }
+}
+
+@media (max-width: 426px) {
+  .site_title {
+    top: 70vw;
+  }
+
+  .site_massage {
+    top: 90vw;
+  }
+
+  .under_message {
+    top: 110vw;
+  }
+}
