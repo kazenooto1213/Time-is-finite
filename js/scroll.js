@@ -1,4 +1,4 @@
-// ボタン
+// トップボタンの要素取得
 const scrollToTopBtn = document.querySelector('#scroll_top_button');
 
 // クリックイベント追加
@@ -18,3 +18,4 @@ function scroll_event(){
     scrollToTopBtn.style.opacity = '0';
   }
 };
+

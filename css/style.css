@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 html {
+  height: 100%;
   font-size: 100%;
 }
 
@@ -14,13 +15,14 @@ html {
 ::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: inherit;
 }
 
 body {
   font-family: 'Cardo', serif;
   flex-direction: column;
   flex-wrap: nowrap;
+  height: 100vh;
 }
 
 a {
@@ -44,7 +46,7 @@ img {
   margin: 0 auto;
 }
 
-.container > article {
+.container>article {
   width: 33%;
 }
 
@@ -64,7 +66,7 @@ img {
 /* Time is finiteロゴ */
 .logo {
   display: inline-block;
-  width: 100px;  
+  width: 100px;
   height: 100px;
   align-items: center;
   filter: drop-shadow(1px 1px 1px #232222);
@@ -230,7 +232,7 @@ img {
 }
 
 /* ハンバーガーメニュー */
-#menu_area{
+#menu_area {
   position: fixed;
   left: 0;
   top: 0;
@@ -244,14 +246,15 @@ img {
   background-image: url(../img/ship.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  transition: all 1.0s ease-in-out;
+  transition: all 0.3s ease-in-out;
   opacity: 0;
 }
+
 /* ハンバーガーメニュークリック時に出現 */
 #menu_area.menu_active {
   opacity: 1;
   z-index: 3;
-} 
+}
 
 #menu_area a {
   font-size: 2rem;
@@ -273,7 +276,7 @@ img {
   left: 0;
   transform-origin: right;
   transform: scaleX(0);
-  transition: transform .3s ease-in-out;
+  transition: transform 0.2s ease;
 }
 
 #menu_area a:hover::before {
@@ -285,9 +288,34 @@ img {
 #main_img {
   width: 100%;
   height: 100vh;
-  background-image:url(../img/earth.jpg);
+  background-image: url(../img/earth.jpg);
   background-size: cover;
   background-position: center;
+  opacity: 0.8;
+}
+
+/* 星のアニメーション */
+#particles-js {
+  position: fixed;
+  /*描画固定*/
+  z-index: -1;
+  /*描画を一番下に*/
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #020E34;
+  /*背景色*/
+  opacity: 1.1;
+}
+
+#star {
+  position: relative;
+  /*描画を#particles-jsよりも上にするためposition:relative;を指定*/
+  z-index: 2;
+  /*z-indexの数字を大きくすることで描画を#particles-jsよりも上に*/
+  width: 100%;
+  height: 100vh;
 }
 
 .img {
@@ -296,7 +324,7 @@ img {
   position: relative;
 }
 
-.img > img {
+.img>img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -304,8 +332,10 @@ img {
   box-shadow: 0 0 10px #edeaea;
 }
 
-.img > img:hover {
+.img>img:hover {
   box-shadow: 0 0 10px #01d9ff;
+  transform: scale(1.2);
+  transition: all 0.5s ease-in-out;
 }
 
 /* メイン画面、小背景上：富士（左）、道（右） */
@@ -350,7 +380,7 @@ img {
   position: absolute;
   writing-mode: vertical-rl;
   letter-spacing: 0.3vw;
-  top: 12vw;
+  top: 8vw;
   left: 53%;
   text-shadow: 2px 0 10px rgb(246, 253, 255);
   animation: flash 10s infinite;
@@ -361,7 +391,7 @@ img {
   position: absolute;
   writing-mode: vertical-rl;
   letter-spacing: 0.3vw;
-  top: 18vw;
+  top: 14vw;
   left: 48%;
   text-shadow: 2px 0 10px rgb(246, 253, 255);
   animation: flash 10s infinite;
@@ -372,17 +402,20 @@ img {
   position: absolute;
   writing-mode: vertical-rl;
   letter-spacing: 0.3vw;
-  top: 24vw;
+  top: 20vw;
   left: 42%;
   text-shadow: 2px 0 10px rgb(246, 253, 255);
   animation: flash 10s infinite;
 }
 
 @keyframes flash {
-  0%, 100% {
+
+  0%,
+  100% {
     /* 明るく光るよう影を重ねる */
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #0091ff, 0 0 70px #0091ff, 0 0 80px #0091ff, 0 0 100px #0091ff, 0 0 150px #0091ff,
   }
+
   50% {
     /* 淡く光るよう影を重ねる */
     text-shadow: 0 0 10px #fff, 0 0 20px #fcfcfc, 0 0 30px #fcfcfc, 0 0 40px #0091ff;
@@ -408,34 +441,519 @@ img {
 }
 
 /* タイピング */
-.typing-animation {
-	width: 34ch;	/*文字の長さ*/
-	border-right: 5px solid #000;	/*点滅バー*/
-	overflow: hidden;	/*必須*/
-	white-space: nowrap;	/*必須*/
-	color:#151616;
-	font-size: 3rem;
-	line-height: 1.4;
-	font-weight: 700;
-	animation: typing 3s steps(18), blink .4s step-end infinite alternate;	/*アニメーション関連*/
+.typing_animation {
+  width: 34ch;
+  /*文字の長さ*/
+  border-right: 5px solid #000;
+  /*点滅バー*/
+  overflow: hidden;
+  /*必須*/
+  white-space: nowrap;
+  /*必須*/
+  color: #151616;
+  font-size: 3rem;
+  line-height: 1.4;
+  font-weight: 700;
+  animation: typing 3s steps(18), blink .4s step-end infinite alternate;
+  /*アニメーション関連*/
+  margin: 0 0 10px 50px;
 }
 
 @keyframes typing {
-	from {
-		width: 0;
-	}
+  from {
+    width: 0;
+  }
 }
+
 @keyframes blink {
-	50% {
-		border-color: transparent;		/*点滅風に見せる*/
-	}
+  50% {
+    border-color: transparent;
+    /*点滅風に見せる*/
+  }
+}
+
+/* 私が出来る事の文字 */
+.i_can {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0 0 10px 50px;
+}
+
+/* 手のアイコン */
+.side {
+  display: flex;
+}
+
+.hand {
+  display: flex;
+  width: 8%;
+  height: 8%;
+  margin-left: 10px;
+}
+
+/* 画面中央の名刺 */
+.skill_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 400px;
+  margin: -150px auto;
+}
+
+#elm {
+  transform: translateY(-20%);
+  opacity: 0;
+}
+
+.fade {
+  animation: fade 3s alternate ease-out forwards;
+}
+
+@keyframes fade {
+  to {
+    transform: initial;
+    opacity: 1;
+  }
+}
+
+/* 制作ロゴ */
+.skill_img1 {
+  width: 15%;
+  margin: -50px 0 0 30px;
+}
+
+.skill_img2 {
+  width: 15%;
+  margin: -20px 0 0 30px;
+}
+
+.ul1 {
+  display: flex;
+  position: absolute;
+}
+
+.ul1 ul {
+  position: relative;
+}
+
+.ul1 li {
+  font-weight: bold;
+}
+
+.ul2 {
+  display: flex;
+  position: absolute;
+  top: 170%;
+}
+
+.ul2 li {
+  font-weight: bold;
+}
+
+/* アバウトエリア */
+#about_area {
+  width: 100%;
+  height: 100vh;
+  background-image: url(../img/about_back.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.left1 {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  top: 5%;
+  left: 3%;
+}
+
+.left1 img {
+  border-radius: 50%;
+  border: 2px solid #006a05;
+}
+
+.adage1 {
+  writing-mode: vertical-rl;
+  font-size: 1.1rem;
+  text-shadow: 1px 1px 1px #111111;
+  height: 300px;
+  letter-spacing: 5px;
+  margin-top: 5px;
+  margin-left: 45px;
+}
+
+.about_up {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 215%;
+  margin: 0 auto;
+}
+
+.about_title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  writing-mode: vertical-rl;
+  justify-content: center;
+  position: absolute;
+  letter-spacing: 10px;
+  font-size: 3.5rem;
+  text-shadow: 1px 1px 1px #111111;
+  height: 360px;
+  top: 260%;
+}
+
+.profile {
+  display: flex;
+  position: absolute;
+  top: 202%;
+  left: 65%;
+}
+
+.profile img {
+  display: inline-block;
+  justify-content: right;
+  width: 400px;
+  height: 400px;
+}
+
+.profile_content {
+  display: flex;
+  position: absolute;
+  top: 228%;
+  left: 71%;
+}
+
+.profile_content li {
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 5px;
+  margin: 0 0 5px 0;
+}
+
+.left2 {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  top: 33%;
+  left: 3%;
+}
+
+.left2 img {
+  border-radius: 50%;
+  border: 2px solid #006a05;
+}
+
+.adage2 {
+  writing-mode: vertical-rl;
+  font-size: 1.1rem;
+  text-shadow: 1px 1px 1px #111111;
+  height: 300px;
+  letter-spacing: 5px;
+  margin-top: 5px;
+  margin-left: 65px;
+}
+
+.hobby1 {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  top: -6%;
+  left: 60%;
+}
+
+.hobby1 img {
+  border-radius: 50%;
+  border: 2px solid #006a05;
+}
+
+.hobby1_1 {
+  font-weight: bold;
+  position: relative;
+  font-size: 1.2rem;
+  width: 250px;
+  top: -20%;
+  left: 71%;
+}
+
+.hobby2 {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  top: -10%;
+  left: 85%;
+}
+
+.hobby2 img {
+  border-radius: 50%;
+  border: 2px solid #006a05;
+}
+
+.hobby2_1 {
+  font-weight: bold;
+  position: relative;
+  font-size: 1.2rem;
+  width: 350px;
+  top: -25%;
+  left: 68%;
+}
+
+.hobby3 {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  top: -18%;
+  left: 60%;
+}
+
+.hobby3 img {
+  border-radius: 50%;
+  border: 2px solid #006a05;
+}
+
+.hobby3_1 {
+  font-weight: bold;
+  position: relative;
+  font-size: 1.2rem;
+  width: 250px;
+  top: -25%;
+  left: 71%;
+}
+
+/* ワークエリア */
+#work_area {
+  width: 100%;
+  height: 100vh;
+  background-image: url(../img/work_area.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.work_up {
+  display: flex;
+  justify-content: left;
+  position: relative;
+  height: 10%;
+}
+
+.concept {
+  display: flex;
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 24%;
+  left: 4%;
+}
+
+.concept_message {
+  display: block;
+  position: absolute;
+  justify-content: center;
+  text-align: center;
+  top: 310%;
+  left: 27%;
+  margin: 100px auto;
+}
+
+.concept_message h2 {
+  font-size: 2rem;
+}
+
+.concept_message ul {
+  display: inline-block;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.concept_message li {
+  font-size: 1.3rem;
+}
+
+.work {
+  display: block;
+  position: absolute;
+  justify-content: center;
+  text-align: center;
+  top: 358%;
+  left: 2%;
+}
+
+.work ul {
+  display: inline-block;
+  text-align: left;
+  font-weight: bold;
+}
+
+.work li {
+  font-size: 1.1rem;
+  margin: 5px 0 5px 0;
+}
+
+.work1 {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 350%;
+  left: 37%;
+}
+
+.Level_up {
+  position: relative;
+  width: 300px;
+  top: 17%;
+  left: 53%;
+}
+
+.work_under {
+  display: block;
+  position: relative;
+  width: 600px;
+  top: 42%;
+  margin: 0 auto;
+}
+
+.work_under h1 {
+  font-size: 3rem;
+  font-style: italic;
+  text-align: center;
+}
+
+/* コンタクトフォームエリア */
+#contact_area {
+  width: 100%;
+  height: 100vh;
+  background-image: url(../img/yamanashi.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.Form {
+  position: relative;
+  top: 12%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 720px;
+}
+
+.Form_title {
+  display: flex;
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 1px 1px 10px #000000;
+  border-bottom: 1px solid #fff;
+  letter-spacing: 20px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.Form-Item {
+  padding-top: 24px;
+  padding-bottom: 24px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.Form-Item-Label {
+  width: 100%;
+  max-width: 248px;
+  letter-spacing: 0.05em;
+  font-weight: bold;
+  font-size: 18px;
+  color: #fff;
+  text-shadow: 1px 1px 1px #111111;
+}
+
+.Form-Item-Label.isMsg {
+  margin-top: 8px;
+  margin-bottom: auto;
+}
+
+.Form-Item-Label-Required {
+  border-radius: 6px;
+  margin-right: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 48px;
+  display: inline-block;
+  text-align: center;
+  background: #0d63db;
+  color: rgb(255, 255, 255);
+  text-shadow: 1px 1px 1px #111111;
+  font-size: 14px;
+}
+
+
+.Form-Item-Input {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-left: 40px;
+  padding-left: 1em;
+  padding-right: 1em;
+  height: 48px;
+  flex: 1;
+  width: 100%;
+  max-width: 410px;
+  background: #eaedf2;
+  font-size: 18px;
+}
+
+.Form-Item-Textarea {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-left: 40px;
+  padding-left: 1em;
+  padding-right: 1em;
+  height: 216px;
+  flex: 1;
+  width: 100%;
+  max-width: 410px;
+  background: #eaedf2;
+  font-size: 18px;
+}
+
+.Form-Btn {
+  border-radius: 6px;
+  margin-top: 32px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 200px;
+  display: block;
+  letter-spacing: 0.05em;
+  background: #0d63db;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  text-shadow: 1px 1px 1px #111111;
+}
+
+.error {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: red;
+  margin: 10px 0 0;
 }
 
 /* スクロールボタン */
 #scroll_top_button {
   position: fixed;
   bottom: 10px;
-  right: 1px;
+  right: 10px;
   width: 100px;
   height: 100px;
   opacity: 0;
@@ -443,90 +961,1165 @@ img {
   cursor: pointer;
 }
 
+/* footer */
+#footer {
+  width: 100%;
+  height: 15vh;
+  background: linear-gradient(135deg, #FFFDE4, #005AA7);
+  position: relative;
+}
+
+.footer_logo {
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  filter: drop-shadow(1px 1px 1px #232222);
+  position: relative;
+  top: 15%;
+  left: 1%;
+}
+
+.footer_title {
+  position: relative;
+  width: 350px;
+  top: -45%;
+  left: 8%;
+}
+
+.footer_title h2 {
+  width: 300px;
+  font-family: 'Cardo', serif;
+  text-shadow: 1px 1px 2px rgb(98, 96, 96);
+  font-style: italic;
+}
+
+.footer_menu {
+  width: 560px;
+  display: flex;
+  position: relative;
+  top: -100%;
+  margin-left: auto;
+}
+
+.footer_menu ul {
+  display: flex;
+}
+
+.footer_menu li {
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.footer_menu a {
+  color: rgb(0, 0, 0);
+  text-shadow: 1px 1px 2px rgb(234, 225, 225);
+  margin-right: 50px;
+  cursor: pointer;
+}
+
+.copy {
+  width: 300px;
+  position: relative;
+  top: -80%;
+  margin: 0 auto;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgb(234, 225, 225);
+}
+
 /* メディアクオリ */
+@media (max-width: 1440px) {
+  .clock_area {
+    position: absolute;
+    left: 46.8%;
+    top: 4%;
+  }
+
+  .site_title {
+    font-size: 3rem;
+  }
+
+  .site_massage {
+    font-size: 2.5rem;
+  }
+
+  .under_message {
+    font-size: 2.5rem;
+    top: 36%;
+  }
+
+  .ul1 {
+    top: 165%;
+  }
+
+  .ul1 li {
+    font-size: 0.8rem;
+  }
+
+  .skill_img2 {
+    margin-top: -25px
+  }
+
+  .ul2 {
+    top: 175%;
+  }
+
+  .ul2 li {
+    font-size: 0.8rem;
+  }
+
+  .left1 {
+    width: 110px;
+    height: 110px;
+    top: 9%;
+  }
+
+  .adage1 {
+    font-size: 0.9rem;
+    margin-left: 9px;
+  }
+
+  .left2 {
+    width: 110px;
+    height: 110px;
+    top: 40%;
+  }
+
+  .adage2 {
+    font-size: 0.9rem;
+    margin-left: 28px;
+  }
+
+  .about_up img {
+    width: 450px;
+    height: 450px;
+  }
+
+  .about_title {
+    height: 410px;
+  }
+
+  .profile {
+    left: 61%;
+    top: 212%;
+  }
+
+  .profile_content {
+    top: 240%;
+    left: 69%;
+  }
+
+  .profile_content li {
+    font-size: 0.9rem;
+  }
+
+  .hobby1 {
+    top: 23%;
+  }
+
+  .cat {
+    width: 110px;
+    height: 110px;
+  }
+
+  .hobby1_1 {
+    font-size: 0.9rem;
+    top: 5%;
+    left: 69%;
+  }
+
+  .hobby2 {
+    top: 13%;
+  }
+
+  .dumbbell {
+    width: 110px;
+    height: 110px;
+  }
+
+  .hobby2_1 {
+    font-size: 0.9rem;
+    top: -4%;
+    left: 67%;
+  }
+
+  .hobby3 {
+    top: 5%;
+  }
+
+  .youtube {
+    width: 110px;
+    height: 110px;
+  }
+
+  .hobby3_1 {
+    font-size: 0.9rem;
+    top: -13%;
+    left: 69%;
+  }
+
+  .concept {
+    width: 300px;
+    height: 300px;
+    left: 42%;
+  }
+
+  .concept_message {
+    left: 2%;
+  }
+
+  .concept_message li {
+    font-size: 1rem;
+  }
+
+  .Level_up {
+    top: 35%;
+    left: 36%;
+  }
+
+  .work {
+    top: 370%;
+  }
+
+  .work1 {
+    width: 200px;
+    height: 200px;
+    top: 349%;
+    left: 1%;
+  }
+
+  .work li {
+    font-size: 0.9rem;
+  }
+
+  .footer_title {
+    left: 10.5%;
+    top: -50%;
+  }
+}
+
+
 @media (max-width: 1025px) {
   #menu {
     display: none;
   }
 
+  .clock_area {
+    position: absolute;
+    left: 45.6%;
+    top: 4%;
+  }
+
   .site_title {
-    font-size: 3rem;
-    top: 24vw;
+    font-size: 2.5rem;
+    top: 18vw;
   }
 
   .site_massage {
     font-size: 2rem;
-    top: 36vw;
+    top: 23vw;
   }
 
   .under_message {
     font-size: 2rem;
-    top:48vw;
+    top: 37vw;
   }
 
-  .img > img {
+  .img>img {
     width: 15vw;
-    height: 10vh;
+    height: 15vh;
     position: absolute;
   }
 
-  .fuji,
-  .road {
+  .fuji {
     top: 10vw;
+    left: 3%;
   }
 
-  .city,
+  .road {
+    top: 10vw;
+    right: 3%;
+  }
+
+  .city {
+    top: 30vw;
+    left: 6%;
+  }
+
   .sea {
     top: 30vw;
+    right: 6%;
   }
 
   .autumn,
   .night {
     top: 50vw;
   }
+
+  .typing_animation {
+    font-size: 2rem;
+  }
+
+  .i_can {
+    font-size: 2rem;
+  }
+
+  .skill_img {
+    width: 300px;
+    height: 300px;
+    margin: -50px auto;
+  }
+
+  .left1 {
+    width: 90px;
+    height: 90px;
+    top: 36%;
+    left: 32%;
+  }
+
+  .adage1 {
+    font-size: 0.9rem;
+    margin-left: -1px;
+  }
+
+  .left2 {
+    width: 90px;
+    height: 90px;
+    top: -2%;
+    left: 77%;
+  }
+
+  .adage2 {
+    font-size: 0.9rem;
+    margin-left: 19px;
+  }
+
+  .about_up img {
+    width: 350px;
+    height: 350px;
+  }
+
+  .about_title {
+    height: 235px;
+    top: 252%;
+    font-size: 2.5rem;
+  }
+
+  .profile {
+    top: 234%;
+    left: 51%;
+  }
+
+  .profile_content {
+    top: 262%;
+    left: 62%;
+    font-size: 0.7rem;
+  }
+
+  .hobby1 {
+    top: 59%;
+    left: 20%;
+  }
+
+  .cat {
+    width: 90px;
+    height: 90px;
+  }
+
+  .hobby1_1 {
+    font-size: 0.7rem;
+    top: 43%;
+    left: 29%;
+  }
+
+  .hobby2 {
+    top: 23%;
+    left: 45.5%;
+  }
+
+  .dumbbell {
+    width: 90px;
+    height: 90px;
+  }
+
+  .hobby2_1 {
+    font-size: 0.7rem;
+    top: 11%;
+    left: 42%;
+  }
+
+  .hobby3 {
+    top: 8%;
+    left: 71%;
+  }
+
+  .youtube {
+    width: 90px;
+    height: 90px;
+  }
+
+  .hobby3_1 {
+    font-size: 0.7rem;
+    top: -6.75%;
+    left: 59%;
+  }
+
+  .concept {
+    width: 300px;
+    height: 300px;
+    top: 45%;
+    left: 10%;
+  }
+
+  .concept_message {
+    top: 340%;
+    left: 5%;
+  }
+
+  .concept_message h2 {
+    font-size: 1.5rem;
+  }
+
+  .concept_message li {
+    font-size: 0.8rem;
+  }
+
+  .Level_up {
+    left: 50%;
+    top: 15%;
+  }
+
+  .work {
+    top: 383%;
+    left: 35%;
+  }
+
+  .work1 {
+    width: 150px;
+    height: 150px;
+    top: 366%;
+    left: 66%;
+  }
+
+  .work li {
+    font-size: 0.8rem;
+  }
+
+  .footer_logo {
+    width: 80px;
+    top: 20%;
+    left: 2%;
+  }
+
+  .footer_title {
+    font-size: 0.7rem;
+    left: 13%;
+    top: -44%;
+  }
+  .copy {
+    top: -70%;
+  }
 }
 
 @media (max-width: 768px) {
   .cname {
-    opacity: 0;
+    position: absolute;
+    opacity: 1;
+    top: 14%;
+    left: 40%;
+    font-style: normal;
+    z-index: 3;
+    text-align: center;
+    animation: flash 10s infinite;
   }
 
   #toggle_btn {
     opacity: 1;
   }
-  
+
   .site_title {
     font-size: 2rem;
-    top: 36vw;
+    top: 24vw;
   }
-
   .site_massage {
-    font-size: 1.2rem;
-    top: 55vw;
+    font-size: 1.5rem;
+    top: 34vw;
   }
-
   .under_message {
-    font-size: 1.2rem;
-    top: 80vw;
+    font-size: 1.5rem;
+    top: 43vw;
   }
 
-  .img > img {
+  .clock_area {
+    position: relative;
+    left: 8%;
+  }
+
+  .img>img {
     width: 10vw;
-    height: 5vh;
+    height: 8vh;
     position: absolute;
+  }
+
+  .fuji {
+    left: 10%;
+  }
+
+  .road {
+    right: 10%;
+  }
+
+  .city {
+    top: 38vw;
+  }
+
+  .sea {
+    top: 38vw;
+  }
+
+  .autumn {
+    top: 70vw;
+    left: 20%;
+  }
+
+  .night {
+    top: 70vw;
+    right: 20%;
+  }
+
+  .typing_animation {
+    font-size: 1rem;
+  }
+
+  .i_can {
+    font-size: 1rem;
+  }
+
+  #about_area {
+    background-position: left;
+  }
+
+  .about_up img {
+    width: 250px;
+    height: 250px;
+  }
+
+  .about_title {
+    font-size: 2rem;
+  }
+
+  .profile {
+    top: 232%;
+    left: 48%;
+  }
+
+  .profile_content {
+    top: 260%;
+  }
+
+  .profile_content li {
+    font-size: 0.7rem;
+  }
+
+  .left1 {
+    top: 5%;
+    left: 8%;
+  }
+
+  .left2 {
+    top: 30%;
+    left: 8%;
+  }
+
+  .hobby1 {
+    left: 8%;
+  }
+
+  .hobby1_1 {
+    left: 20%;
+  }
+
+  .hobby2 {
+    left: 44%;
+  }
+
+  .hobby3_1 {
+    left: 54%;
+  }
+
+  .concept_message {
+    left: 2%;
+  }
+
+  .work {
+    left: 30%;
+  }
+
+  .Form_title {
+    font-size: 2rem;
+  }
+
+  .Form-Item-Input {
+    margin-left: 11px;
+  }
+
+  .Form-Item-Textarea {
+    margin-left: 11px;
+    height: 180px;
+  }
+
+  .footer_menu {
+    top: -110%;
+    left: 50%;
+    left: -4%;
+  }
+  .footer_menu a {
+    font-style: normal;
+  }
+  .footer_title h2 {
+    font-style: normal;
+  }
+
+  .copy {
+    top: -60%;
   }
 }
 
+@media screen and (max-width: 480px) {
+  .Form {
+    margin-top: 40px;
+  }
+
+  .Form-Item {
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .Form-Item-Label {
+    max-width: inherit;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+  }
+
+  .Form-Item-Label.isMsg {
+    margin-top: 0;
+  }
+
+  .Form-Item-Label-Required {
+    border-radius: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    width: 32px;
+    font-size: 10px;
+  }
+
+  .Form-Item-Input {
+    margin-left: 0;
+    margin-top: 18px;
+    height: 40px;
+    flex: inherit;
+    font-size: 15px;
+  }
+
+  .Form-Item-Textarea {
+    margin-top: 18px;
+    margin-left: 0;
+    height: 200px;
+    flex: inherit;
+    font-size: 15px;
+  }
+
+  .Form-Btn {
+    margin-top: 24px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 160px;
+    font-size: 16px;
+  }
+}
+
+
 @media (max-width: 426px) {
+  .cname {
+    position: absolute;
+    opacity: 1;
+    top: 32%;
+    left: 31%;
+    font-style: normal;
+    z-index: 3;
+    text-align: center;
+    animation: flash 10s infinite;
+  }
   .site_title {
-    top: 70vw;
+    font-size: 2rem;
+    writing-mode: horizontal-tb;
+    top: 60vw;
+    left: 31%;
   }
-
   .site_massage {
-    top: 90vw;
+    font-size: 1.8rem;
+    writing-mode: horizontal-tb;
+    top: 75vw;
+    left: 15%;
+  }
+  .under_message {
+    font-size: 1.8rem;
+    writing-mode: horizontal-tb;
+    top: 88vw;
+    left: 19%;
+  }
+  .clock_area {
+    position: absolute;
+    top: 4%;
+    left: 40%;
   }
 
+  .fuji {
+    top: -18vw;
+    left: 34%;
+  }
+  .road {
+    top: -18vw;
+    right: 34%;
+  }
+
+  .city {
+    top: -15vw;
+    left: 17.5%;
+  }
+  .sea {
+    top: -15vw;
+    right: 17.5%;
+  }
+
+  .autumn {
+    top: -8vw;
+    left: 2%;
+  }
+  .night {
+    top: -8vw;
+    right: 2%;
+  }
+
+  .img > img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .side {
+    display: block;
+  }
+  .hand {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    left: 2%;
+  }
+
+  .skill_img {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 130%;
+    left: 27%;
+  }
+
+  .skill_img1 {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin-bottom: -20px;
+    left: 20%;
+  }
+  .ul1 {
+    display: inline-block;
+    position: absolute;
+    top: 150%;
+    width: 410px;
+  }
+  .ul1 ul {
+    position: relative;
+    border: 1px solid #000;
+    background-color: #fff;
+    left: 1.8%;
+  }
+  .ul1 li {
+    position: relative;
+    left: 2%;
+    font-size: 0.6rem;
+  }
+
+  .skill_img2 {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin-bottom: -20px;
+    left: 20%;
+  }
+  .ul2 {
+    display: inline-block;
+    position: absolute;
+    top: 176%;
+    width: 410px;
+  }
+  .ul2 ul {
+    position: relative;
+    border: 1px solid #000;
+    background-color: #fff;
+    left: 1.8%;
+  }
+  .ul2 li {
+    position: relative;
+    font-size: 0.6rem;
+    left: 1.25%;
+    margin: 0 auto;
+  }
+
+  .about_up img {
+    width: 150px;
+    height: 150px;
+  }
+  .about_title {
+    top: 230%;
+  }
+
+  .hobby1 {
+    left: 5%;
+    top: 42%;
+  }
+  .hobby1 img {
+    width: 60px;
+    height: 60px;
+  }
+  .hobby1_1 {
+    font-size: 0.6rem;
+    left: 5%;
+    top: 26%;
+  }
+
+  .hobby2 {
+    left: 5%;
+    top: 28%;
+  }
+  .hobby2 img {
+    width: 60px;
+    height: 60px;
+  }
+  .hobby2_1 {
+    font-size: 0.6rem;
+    left: 5%;
+    top: 12%;
+  }
+
+  .hobby3 {
+    left: 5%;
+    top: 15%;
+  }
+  .hobby3 img {
+    width: 60px;
+    height: 60px;
+  }
+  .hobby3_1 {
+    font-size: 0.6rem;
+    left: 4%;
+    top: -1%;
+  }
+
+  .left1 {
+    left: 75%;
+  }
+  .left1 img {
+    width: 80px;
+    height: 80px;
+  }
+  .adage1 {
+    text-shadow: unset;
+    font-size: 0.8rem;
+  }
+
+  .left2 {
+    left: 75%;
+    top: 48%;
+  }
+  .left2 img {
+    width: 80px;
+    height: 80px;
+  }
+  .adage2 {
+    text-shadow: none;
+    font-size: 0.8rem;
+  }
+
+  .profile img {
+    position: relative;
+    top: -70px;
+    left: -125%;
+    width: 150px;
+    height: 150px;
+  }
+
+  .profile_content {
+    top: 236%;
+    left: 9%;
+    writing-mode: vertical-rl;
+    height: 350px;
+  }
+  .profile_content li:first-child {
+    -ms-writing-mode: tb-rl;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+  .profile_content li {
+    font-size: 0.8rem;
+  }
+
+  .concept {
+    top: 20%;
+    left: 20%;
+    width: 250px;
+    height: 250px;
+  }
+
+  .concept_message {
+    top: 331%;
+    left: 0;
+  }
+
+  .work {
+    left: 6%;
+    top: 390%;
+  }
+
+  .work li {
+    font-size: 0.6rem;
+  }
+
+  .work_under {
+    width: 300px;
+    top: 70%;
+  }
+
+  .work_under h2,
+  .work_under h1 {
+    font-size: 1rem;
+  }
+
+  .work1 {
+    left: 60%;
+    top: 373%;
+  }
+
+  .Level_up {
+    width: 150px;
+    height: 100px;
+    top: 46%;
+    left: 13%;
+  }
+
+  #contact_area {
+    position: relative;
+    top: -4.5%;
+    background-position: left;
+  }
+
+  #footer {
+    position: relative;
+    top: -4.5%;
+  }
+
+  .footer_menu {
+    position: absolute;
+    top: 10%;
+    left: 14%;
+    justify-content: center;
+    width: 330px;
+  }
+
+  .footer_menu li {
+    font-size: 0.7rem;
+    width: 70px;
+  }
+
+  .footer_title {
+    opacity: 0;
+  }
+
+  .footer_logo {
+    width: 80px;
+    height: 80px;
+    left: 8%;
+    top: 30%;
+  }
+
+  .Form-Btn {
+    margin-top: 10px;
+  }
+
+  .copy {
+    font-size: 0.7rem;
+    top: -40%;
+  }
+
+  #scroll_top_button {
+    width: 80px;
+    height: 80px;
+    right: 10px;
+    top: 90%;
+  }
+}
+
+@media (max-width: 375px) {
+  .cname {
+    top: 30%;
+    left: 26%;
+  }
+  .site_title {
+    left: 28%;
+  }
+  .site_massage {
+    left: 10%;
+  }
   .under_message {
-    top: 110vw;
+    left: 15%;
+  }
+
+  .fuji {
+    top: -20vw;
+    left: 33%;
+  }
+  .road {
+    top: -20vw;
+    right: 33%;
+  }
+
+  .city {
+    top: -17vw;
+    left: 16.8%;
+  }
+  .sea {
+    top: -17vw;
+    right: 16.8%;
+  }
+
+
+  .autumn {
+    top: -12vw;
+    left: 1%;
+  }
+  .night {
+    top: -12vw;
+    right: 1%;
+  }
+
+  .clock_area {
+    left: 37%;
+  }
+
+  #toggle_btn {
+    top: -4%;
+  }
+
+  .skill_img {
+    top: 133%;
+    left: 24%;
+  }
+  .hand {
+    width: 70px;
+    height: 70px;
+    left: 39%;
+    top: 121%;
+    position: absolute;
+  }
+
+  .skill_img1 {
+    left: 17%;
+    margin-bottom: -45px;
+  }
+  .ul1 {
+    width: 360px;
+    top: 153%;
+  }
+  .ul1 ul {
+    left: 1.9%;
+  }
+
+  .skill_img2 {
+    left: 17%;
+    margin-bottom: -35px;
+  }
+  .ul2 {
+    width: 360px;
+    top: 175%;
+  }
+  .ul2 ul {
+    left: 1.9%;
+  }
+
+  .profile img {
+    left: -110%;
+  }
+  .left1 {
+    top: 6%;
+    left: 72%;
+  }
+  .left2 img {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 269%;
+    left: -141%;
+  }
+  .adage2 {
+    font-size: 0.6rem;
+    writing-mode: horizontal-tb;
+    position: absolute;
+    top: 317%;
+    left: -94%;
+  }
+
+  .work {
+    left: 2%;
+    top: 388%;
+  }
+  .work1 {
+    left: 59%;
+    top: 371%;
+  }
+
+  .concept_message {
+    left: 1%;
+    top: 334%;
+  }
+  .concept_message h2 {
+    font-size: 1.2rem;
+  }
+  .concept_message li {
+    font-size: 0.7rem;
+  }
+
+  .footer_logo {
+    left: 6%;
+  }
+  .footer_menu {
+    width: 230px;
+    left: 20%;
+  }
+  .footer_menu li {
+    width: 60px;
+  }
+  .footer_title{
+    display: none;
+  }
+
+  .copy {
+    top: 10%;
   }
 }
