@@ -231,6 +231,27 @@ img {
   left: -4px;
 }
 
+.cursor {
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid #fff704;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: cursorAnim 0.5s infinite alternate;
+}
+
+@keyframes cursorAnim {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+}
+
 /* ハンバーガーメニュー */
 #menu_area {
   position: fixed;
